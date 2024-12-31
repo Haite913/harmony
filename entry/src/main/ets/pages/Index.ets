@@ -31,7 +31,7 @@ struct Index {
         .onClick(() => {
           console.info(`Succeeded in clicking the 'Next' button.`)
           // 跳转到第二页
-          router.pushUrl({ url: 'pages/Second' }).then(() => {
+          router.pushUrl({ url: 'pages/LoginPage' }).then(() => {
             console.info('Succeeded in jumping to the second page.')
 
           }).catch((err: BusinessError) => {
