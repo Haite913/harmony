@@ -1,7 +1,9 @@
+import router from '@ohos.router'
+
 @Entry
 @Component
 struct Second {
-  @State message: string = 'Hi there'
+  @State message: string = '首页'
 
   build() {
     Row() {
@@ -13,6 +15,9 @@ struct Second {
           Text('Back')
             .fontSize(30)
             .fontWeight(FontWeight.Bold)
+            .onClick(()=>{
+              router.pushUrl({url: "pages/LoginPage"})
+            })
         }
         .type(ButtonType.Capsule)
         .margin({
