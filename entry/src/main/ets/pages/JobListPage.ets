@@ -1,4 +1,5 @@
 import { router } from '@kit.ArkUI'
+import {getPageData} from './GetData'
 
 @Entry
 @Component
@@ -84,12 +85,61 @@ struct JobListPage {
     .alignItems(VerticalAlign.Center)
   }
 
+  data: getPageData = {
+    jobId: 1,
+    onDustyStatus: 'string',
+    pageNumber: 2,
+    pageSize: 2,
+    positionTitle: 'string',
+    reviewStatus: 'string',
+    unit: 'string',
+    userName: 'string'
+
+  };
+
+
   build() {
     Column() {
       Navigation(){
         //代码编写位置
-        Text('岗位列表')
+        // Text('岗位列表')
+        Column(){
+            List(){
+              //列表里的第二个项目据
+              ListItem(){
+                Row(){
+                  Column(){
+                    Text(this.data.onDustyStatus)
+                      .fontSize(18)
+                  }
+                  .height(130)
+                  .width('60%')
+                  .margin({ left: 20 })
+                  .alignItems(HorizontalAlign.Start)
 
+                }
+              }
+
+              //列表里第二个项目
+              ListItem(){
+                Row(){
+                  Column(){
+                    Text("hello world")
+                      .fontSize(18)
+                  }
+                  .height(130)
+                  .width('60%')
+                  .margin({ left: 20 })
+                  .alignItems(HorizontalAlign.Start)
+                }
+              }
+
+          }
+          .height('100%')
+          .width('100%')
+          .align(Alignment.Top)
+          .margin({top: 5})
+        }
 
       }
       .title("ArkUI")
