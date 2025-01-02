@@ -1,6 +1,10 @@
 {
   "src": [
     "pages/HomePage",
-    "pages/LoginPage"
+    "pages/LoginPage",
+    "pages/ApplyListPage",
+    "pages/JobListPage",
+    "pages/PersonCenterPage",
+    "pages/RegisterPage"
   ]
 }

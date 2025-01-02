@@ -2,27 +2,30 @@ import { router } from '@kit.ArkUI'
 
 @Entry
 @Component
-struct Homepage {
+struct HomePage {
   @State index: number = 0
 
   @Builder NavigationMenus() { // CustomBuilder类型的菜单栏
     Row() {
-      // Image($r('app.media.icon_search'))
-      //   .size({ width: 24, height: 24 })
-      // Image($r('app.media.icon_add'))
-      //   .size({ width: 24, height: 24 })
-      //   .margin({ left: 5 })
-      // Image($r('app.media.icon_more'))
-      //   .size({ width: 24, height: 24 })
-      //   .margin({ left: 5 })
+      Image($r('app.media.startIcon'))
+        .size({ width: 24, height: 24 })
+      Image($r('app.media.startIcon'))
+        .size({ width: 24, height: 24 })
+        .margin({ left: 5 })
+      Image($r('app.media.startIcon'))
+        .size({ width: 24, height: 24 })
+        .margin({ left: 5 })
+      Image($r('app.media.startIcon'))
+        .size({ width: 24, height: 24 })
+        .margin({ left: 5 })
     }.justifyContent(FlexAlign.End)
   }
 
   @Builder NavigationToolbar() { // CustomBuilder类型的toolbar
     Row() {
       Column() {
-        // Image(this.index == 0 ? $r('app.media.icon_indexed') : $r('app.media.icon_index'))
-        //   .size({ width: 25, height: 25 })
+        Image(this.index == 0 ? $r('app.media.layered_image') : $r('app.media.foreground'))
+          .size({ width: 25, height: 25 })
         Text('首页')
           .fontSize(16)
           .fontColor(this.index == 0 ? "#28bff1" : "#8a8a8a")
@@ -31,13 +34,13 @@ struct Homepage {
       .height('100%')
       .layoutWeight(1)
       .onClick(() => {
-        this.index = 0;
+        router.pushUrl({url:'pages/HomePage'})
       })
 
       Column() {
-        // Image(this.index == 1 ? $r('app.media.icon_listed') : $r('app.media.icon_list'))
-        //   .size({ width: 25, height: 25 })
-        Text('列表')
+        Image(this.index == 1 ? $r('app.media.layered_image') : $r('app.media.foreground'))
+          .size({ width: 25, height: 25 })
+        Text('岗位列表')
           .fontSize(16)
           .fontColor(this.index == 1 ? "#28bff1" : "#8a8a8a")
       }
@@ -45,13 +48,13 @@ struct Homepage {
       .height('100%')
       .layoutWeight(1)
       .onClick(() => {
-        // router.pushUrl({url:'pages/LoginPage'})
+        router.pushUrl({url:'pages/JobListPage'})
       })
 
       Column() {
-        // Image(this.index == 2 ? $r('app.media.icon_othered') : $r('app.media.icon_other'))
-        //   .size({ width: 25, height: 25 })
-        Text('更多')
+        Image(this.index == 2 ? $r('app.media.layered_image') : $r('app.media.foreground'))
+          .size({ width: 25, height: 25 })
+        Text('申请列表')
           .fontSize(16)
           .fontColor(this.index == 2 ? "#28bff1" : "#8a8a8a")
       }
@@ -59,7 +62,21 @@ struct Homepage {
       .height('100%')
       .layoutWeight(1)
       .onClick(() => {
-        this.index = 2;
+        router.pushUrl({url:'pages/ApplyListPage'})
+      })
+
+      Column() {
+        Image(this.index == 3 ? $r('app.media.layered_image') : $r('app.media.foreground'))
+          .size({ width: 25, height: 25 })
+        Text('个人中心')
+          .fontSize(16)
+          .fontColor(this.index == 3 ? "#28bff1" : "#8a8a8a")
+      }
+      .alignItems(HorizontalAlign.Center)
+      .height('100%')
+      .layoutWeight(1)
+      .onClick(() => {
+        router.pushUrl({url:'pages/PersonCenterPage'})
       })
     }
     .width('100%')
@@ -70,11 +87,9 @@ struct Homepage {
   build() {
     Column() {
       Navigation(){
-        Text(this.index == 0 ? "首页" : this.index == 1 ? "列表" : "更多")
-          .textAlign(TextAlign.Center)
-          .fontSize(30)
-          .size({ width: '100%', height: '100%' })
-          .backgroundColor('#ffd4e9ee')
+        //代码编写位置
+        Text('首页')
+
 
       }
       .title("ArkUI")
