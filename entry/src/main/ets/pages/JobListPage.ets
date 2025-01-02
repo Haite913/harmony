@@ -105,34 +105,51 @@ struct JobListPage {
         // Text('岗位列表')
         Column(){
             List(){
-              //列表里的第二个项目据
+              //列表里的第一个项目(后面进行循环)
               ListItem(){
-                Row(){
                   Column(){
-                    Text(this.data.onDustyStatus)
-                      .fontSize(18)
-                  }
+                    Row(){
+                      Text('岗位名称')
+                        .fontSize(18)
+                        .margin({left:20})
+                      Text('岗位性质')
+                        .fontSize(18)
+                        .margin({left: 60})
+                    }
+                    .height('40%')
+                    .width('100%')
+                    Row(){
+                      Text('单位')
+                        .fontSize(13)
+                        .margin({left:20})
+                      Text('在岗人数')
+                        .fontSize(13)
+                        .margin({left:60})
+                    }
+                    .height('20%')
+                    .width('100%')
+                    Row(){
+                      Text('负责人')
+                        .fontSize(18)
+                        .margin({left:20})
+                      Text('学年')
+                        .fontSize(18)
+                    }
+                    .height('40%')
+                    .width('100%')
+
+                  }//对Colum进行排版
                   .height(130)
-                  .width('60%')
                   .margin({ left: 20 })
                   .alignItems(HorizontalAlign.Start)
 
-                }
               }
+              .onClick(() => {
+               //跳转到相应的界面
+
+              })
 
               //列表里第二个项目
-              ListItem(){
-                Row(){
-                  Column(){
-                    Text("hello world")
-                      .fontSize(18)
-                  }
-                  .height(130)
-                  .width('60%')
-                  .margin({ left: 20 })
-                  .alignItems(HorizontalAlign.Start)
-                }
-              }
 
           }
           .height('100%')
