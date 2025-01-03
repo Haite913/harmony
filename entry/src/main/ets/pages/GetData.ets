@@ -27,3 +27,20 @@ export interface  getPageData {
   //   this.userName = userName;
   // }
 }
+
+
+export function createJobData(id:number, academicYear: string, unit: string, positionTitle: string, head: string,
+  requireNumber: number, positionNature: string, positionType: string, applicantNumber:number, jobNumber:number) {
+  return ({
+    Id: id,
+    academicYear: academicYear,
+    unit: unit,
+    positionTitle: positionTitle,
+    head: head,
+    requireNumber: requireNumber,
+    positionNature: positionNature,
+    positionType: positionType,
+    applicantNumber: applicantNumber,
+    jobNumber: jobNumber,
+  } as getPageData);
+}
