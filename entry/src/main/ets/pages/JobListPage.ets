@@ -1,5 +1,7 @@
+import{ http } from '@kit.NetworkKit'
 import { router } from '@kit.ArkUI'
-import {getPageData} from './GetData'
+import * as GetData from './GetData'
+import { BusinessError } from '@kit.BasicServicesKit';
 
 @Entry
 @Component
@@ -85,17 +87,62 @@ struct JobListPage {
     .alignItems(VerticalAlign.Center)
   }
 
-  data: getPageData = {
-    jobId: 1,
-    onDustyStatus: 'string',
-    pageNumber: 2,
-    pageSize: 2,
-    positionTitle: 'string',
-    reviewStatus: 'string',
-    unit: 'string',
-    userName: 'string'
+  getData(){
+    // 构建请求体
+    const Jobdata: GetData.getPageData = {
+      Id: 1,                      //工作编号
+      academicYear: '2023-2024',  //学年
+      unit: '销售部',              //单位
+      positionTitle: '销售代表',    //岗位名称
+      head: '王五',                //负责人
+      requireNumber: 3,           //需求人数
+      positionNature: "全职",
+      positionType: "全职",
+      applicantNumber: 20,
+      jobNumber: 5,
 
-  };
+    };
+    // 创建一个HTTP请求任务
+    let httpRequest = http.createHttp();
+    // 用于订阅HTTP响应头，此接口会比request请求先返回。可以根据业务需要订阅此消息
+    httpRequest.on('headersReceive', (header) => {
+      console.info('header: ' + JSON.stringify(header));
+    });
+
+    // 发送GET请求
+    httpRequest.request(
+      `http://192.168.236.114:8866/ptjs/job/page`, // 填写HTTP请求的URL地址，替换为你的登录接口URL
+      {
+        method: http.RequestMethod.GET, // 设置请求方法为GET
+        header: {
+          'Content-Type': 'application/json' // 设置请求头Content-Type为application/json
+        },
+      },
+      (err: BusinessError, data: http.HttpResponse) => {
+        interface ResultObject {
+          code: number;
+          msg: string;
+          data: object; // 或者更具体的类型，取决于你的数据结构
+        }
+        // let obj :ResultObject = JSON.parse(data.result.toString())
+        if (data.responseCode==200){
+          // 请求成功，处理响应数据
+          console.info('Result:' + JSON.stringify(data.result));
+          console.info('code:' + JSON.stringify(data.responseCode));
+          console.info('header:' + JSON.stringify(data.header));
+          console.info('cookies:' + JSON.stringify(data.cookies)); // 8+
+        } else {
+          // 请求失败，处理错误
+          console.error('error:' + JSON.stringify(err));
+          // 取消订阅HTTP响应头事件
+          httpRequest.off('headersReceive');
+        }
+      }
+    );
+  }
+
+
+
 
 
   build() {
@@ -105,57 +152,62 @@ struct JobListPage {
         // Text('岗位列表')
         Column(){
             List(){
-              //列表里的第一个项目(后面进行循环)
+                //列表里的第一个项目(后面进行循环)
               ListItem(){
-                  Column(){
-                    Row(){
-                      Text('岗位名称')
-                        .fontSize(18)
-                        .margin({left:20})
-                      Text('岗位性质')
-                        .fontSize(18)
-                        .margin({left: 60})
-                    }
-                    .height('40%')
-                    .width('100%')
-                    Row(){
-                      Text('单位')
-                        .fontSize(13)
-                        .margin({left:20})
-                      Text('在岗人数')
-                        .fontSize(13)
-                        .margin({left:60})
-                    }
-                    .height('20%')
-                    .width('100%')
-                    Row(){
-                      Text('负责人')
-                        .fontSize(18)
-                        .margin({left:20})
-                      Text('学年')
-                        .fontSize(18)
-                    }
-                    .height('40%')
-                    .width('100%')
-
-                  }//对Colum进行排版
-                  .height(130)
-                  .margin({ left: 20 })
-                  .alignItems(HorizontalAlign.Start)
-
+                Column(){
+                  Row(){
+                    Text('岗位名称')
+                      .fontSize(18)
+                      .margin({left:20})
+                    Text('岗位性质')
+                      .fontSize(18)
+                      .margin({left: 60})
+                  }
+                  .height('40%')
+                  .width('100%')
+                  Row(){
+                    Text('单位')
+                      .fontSize(13)
+                      .margin({left:20})
+                    Text('在岗人数')
+                      .fontSize(13)
+                      .margin({left:60})
+                  }
+                  .height('20%')
+                  .width('100%')
+                  Row(){
+                    Text('负责人')
+                      .fontSize(18)
+                      .margin({left:20})
+                    Text('学年')
+                      .fontSize(18)
+                  }
+                  .height('40%')
+                  .width('100%')
+                }//对Colum进行排版
+                .height(130)
+                .margin({ left: 20 })
+                .alignItems(HorizontalAlign.Start)
               }
               .onClick(() => {
-               //跳转到相应的界面
-
+                //跳转到相应的界面
+                // router.pushUrl({url: "pages/HomePage"})
+                this.getData();
               })
 
-              //列表里第二个项目
+              .border({
+                color: Color.Red,
+                radius: 10,
+                style: BorderStyle.Solid
 
+              })
+              .width('90%')
+              .backgroundColor(Color.Gray)
           }
           .height('100%')
           .width('100%')
-          .align(Alignment.Top)
           .margin({top: 5})
+          .alignListItem(ListItemAlign.Center)
         }
 
       }
