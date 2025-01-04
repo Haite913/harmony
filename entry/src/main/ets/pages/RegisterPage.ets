@@ -24,7 +24,7 @@ struct Index {
 
     // 构建请求体
     const userDto: UserDto = {
-      identity: 0,
+      identity: 1,
       name: this.name,
       username: this.username,
       password: this.password,
