@@ -29,8 +29,27 @@ struct ApplyListPage {
         interface ResultObject {
           code: number;
           msg: string;
-          data: object; // 或者更具体的类型，取决于你的数据结构
+          data: DataContainer; // 或者更具体的类型，取决于你的数据结构
         }
+        interface DataContainer {
+          code: number;
+          msg: string;
+          data: ApplyResult[]; // 同样使用可选属性操作符
+        }
+        interface ApplyResult {
+          id: number | null;
+          jobId: number;
+          positionTitle: string;
+          positionType: string;
+          startWorkDate: string;
+          phone: string;
+          academicYear: string;
+          onDutyStatus: number;
+          reviewStatus: number;
+          bankCardNumber: string;
+        }
+
+        const applyResult: ApplyResult[] = [];
         // let obj :ResultObject = JSON.parse(data.result.toString())
         if (data.responseCode==200){
           // 请求成功，处理响应数据
@@ -38,6 +57,45 @@ struct ApplyListPage {
           console.info('code:' + JSON.stringify(data.responseCode));
           console.info('header:' + JSON.stringify(data.header));
           console.info('cookies:' + JSON.stringify(data.cookies)); // 8+
+            // 解析 JSON 字符串为 JavaScript 对象
+          const resultObject: ResultObject = JSON.parse(data.result.toString());
+          resultObject.data.data.forEach(
+            (item: ApplyResult) => {
+              console.info(item.positionTitle);
+              console.info(item.positionType);
+              console.info(item.startWorkDate);
+              console.info(item.phone);
+              console.info(item.academicYear);
+              console.info(item.bankCardNumber);
+              console.info(item.jobId.toString());
+              console.info(item.onDutyStatus.toString());
+              console.info(item.reviewStatus.toString());
+            }
+          )
+          //     // 清空 applyResult 数组以确保没有旧数据残留
+          //     applyResult.length = 0;
+          //
+          //     // 遍历数据并填充 applyResult 数组
+          //     positionsData.forEach((position: any) => {
+          //       // 将 onDutyStatus 和 reviewStatus 字符串转换为数字类型
+          //       const parsedPosition: ApplyResult = {
+          //         id: position.id,
+          //         jobId: position.jobId,
+          //         positionTitle: position.positionTitle,
+          //         positionType: position.positionType,
+          //         startWorkDate: position.startWorkDate,
+          //         phone: position.phone,
+          //         academicYear: position.academicYear,
+          //         onDutyStatus: parseInt(position.onDutyStatus, 10),
+          //         reviewStatus: parseInt(position.reviewStatus, 10),
+          //         bankCardNumber: position.bankCardNumber
+          //       };
+          //
+          //       // 添加到 applyResult 数组
+          //       applyResult.push(parsedPosition);
+          //     });
+          //
+          //     console.info('applyResult:', applyResult);
         } else {
           // 请求失败，处理错误
           console.error('error:' + JSON.stringify(err));
@@ -47,6 +105,7 @@ struct ApplyListPage {
       }
     );
   }
+
   @Builder NavigationMenus() { // CustomBuilder类型的菜单栏
     Row() {
       Image($r('app.media.startIcon'))
