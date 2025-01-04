@@ -50,6 +50,7 @@ struct LoginPage {
         }
         let obj :ResultObject = JSON.parse(data.result.toString())
         if (obj.code==0){
+          AppStorage.setOrCreate("username",this.username)
           // 请求成功，处理响应数据
           console.info('Result:' + JSON.stringify(data.result));
           console.info('code:' + JSON.stringify(data.responseCode));
