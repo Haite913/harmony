@@ -89,19 +89,19 @@ struct JobListPage {
 
   getData(){
     // 构建请求体
-    const Jobdata: GetData.getPageData = {
-      Id: 1,                      //工作编号
-      academicYear: '2023-2024',  //学年
-      unit: '销售部',              //单位
-      positionTitle: '销售代表',    //岗位名称
-      head: '王五',                //负责人
-      requireNumber: 3,           //需求人数
-      positionNature: "全职",
-      positionType: "全职",
-      applicantNumber: 20,
-      jobNumber: 5,
-
-    };
+    // const Jobdata: GetData.getPageData = {
+    //   Id: 1,                      //工作编号
+    //   academicYear: '2023-2024',  //学年
+    //   unit: '销售部',              //单位
+    //   positionTitle: '销售代表',    //岗位名称
+    //   head: '王五',                //负责人
+    //   requireNumber: 3,           //需求人数
+    //   positionNature: "全职",
+    //   positionType: "全职",
+    //   applicantNumber: 20,
+    //   jobNumber: 5,
+    //
+    // };
     // 创建一个HTTP请求任务
     let httpRequest = http.createHttp();
     // 用于订阅HTTP响应头，此接口会比request请求先返回。可以根据业务需要订阅此消息
@@ -111,7 +111,7 @@ struct JobListPage {
 
     // 发送GET请求
     httpRequest.request(
-      `http://192.168.236.114:8866/ptjs/job/page`, // 填写HTTP请求的URL地址，替换为你的登录接口URL
+      `http://192.168.236.114:8866/ptjs/job/getAll`, // 填写HTTP请求的URL地址，替换为你的登录接口URL
       {
         method: http.RequestMethod.GET, // 设置请求方法为GET
         header: {
@@ -122,8 +122,27 @@ struct JobListPage {
         interface ResultObject {
           code: number;
           msg: string;
-          data: object; // 或者更具体的类型，取决于你的数据结构
+          data: DataContainer; // 或者更具体的类型，取决于你的数据结构
         }
+        interface DataContainer {
+          code: number;
+          msg: string;
+          data: JobResult[]; // 同样使用可选属性操作符
+        }
+        interface JobResult {
+          id: number | null;
+          jobId: number;
+          positionTitle: string;
+          head: string;
+          positionNature: string;
+          positionType: string;
+          requireNumber: number;
+          applicantNumber: number;
+          jobNumber: number;
+          unit: string;
+          academicYear: string,
+        }
+        const jobResult: JobResult[] = [];
         // let obj :ResultObject = JSON.parse(data.result.toString())
         if (data.responseCode==200){
           // 请求成功，处理响应数据
@@ -131,6 +150,46 @@ struct JobListPage {
           console.info('code:' + JSON.stringify(data.responseCode));
           console.info('header:' + JSON.stringify(data.header));
           console.info('cookies:' + JSON.stringify(data.cookies)); // 8+
+          // 解析 JSON 字符串为 JavaScript 对象
+          const resultObject: ResultObject = JSON.parse(data.result.toString());
+          resultObject.data.data.forEach(
+            (item: JobResult) => {
+              console.info(item.positionTitle);
+              console.info(item.positionType);
+              console.info(item.academicYear);
+              console.info(item.jobId?.toString());
+              console.info(item.head);
+              console.info(item.positionNature);
+              console.info(item.unit);
+              console.info(item.id?.toString());
+              console.info(item.requireNumber.toString());
+              console.info(item.applicantNumber.toString());
+              console.info(item.jobNumber.toString());
+            }
+          )
+              // 清空 applyResult 数组以确保没有旧数据残留
+          jobResult.length = 0;
+
+              // 遍历数据并填充 applyResult 数组
+          resultObject.data.data.forEach((job: JobResult) => {
+                // 将 onDutyStatus 和 reviewStatus 字符串转换为数字类型
+                const jobdata: JobResult = {
+                  id: job.id,
+                  jobId: job.jobId,
+                  positionTitle: job.positionTitle,
+                  head: job.head,
+                  positionNature: job.positionNature,
+                  positionType: job.positionType,
+                  requireNumber: job.requireNumber,
+                  applicantNumber: job.applicantNumber,
+                  jobNumber: job.jobNumber,
+                  unit: job.unit,
+                  academicYear: job.academicYear,
+                };
+                // 添加到 applyResult 数组
+                jobResult.push(jobdata);
+              });
+              console.info('jobResult:', jobResult);
         } else {
           // 请求失败，处理错误
           console.error('error:' + JSON.stringify(err));
@@ -149,7 +208,10 @@ struct JobListPage {
     Column() {
       Navigation(){
         //代码编写位置
-        // Text('岗位列表')
+        Text('岗位列表')
+          .onAppear(()=>{
+            this.getData()
+          })
         Column(){
             List(){
                 //列表里的第一个项目(后面进行循环)
