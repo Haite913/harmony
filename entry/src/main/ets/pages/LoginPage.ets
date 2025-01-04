@@ -209,18 +209,27 @@ struct LoginPage {
               // 处理登录逻辑，并且在用户选择记住密码时保存密码
               this.handleLogin();
             })
-            .margin({ top: 56 });
-
+            .margin({ top: 10 });
+          // 登录按钮
+          Button('注 册')
+            .width('60%')
+            .height(50)
+            .backgroundColor(Color.Red)
+            .fontSize(18)
+            .fontColor(Color.White)
+            .onClick(() => {
+              // 处理登录逻辑，并且在用户选择记住密码时保存密码
+              router.pushUrl({url: "pages/RegisterPage"});
+            })
+            .margin({ top: 10 });
           // 底部图片
-          //   Image($r('app.media.login_bottom'))
-          //     .width('100%');
-          // }
-          // .height('100%')
-          // .width('100%')
-          // .backgroundColor(Color.White)
-          // .justifyContent(FlexAlign.SpaceBetween);
-
-        }
+          Image($r('app.media.Logo'))
+            .size({ width: 160, height: 160 })
+          }
+          .height('100%')
+          .width('100%')
+          .backgroundColor(Color.White)
+          .justifyContent(FlexAlign.SpaceBetween);
       }
     }
   }
