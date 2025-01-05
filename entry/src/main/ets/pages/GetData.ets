@@ -4,7 +4,7 @@
 
 //工作查询页面的数据，从接口文档进行设置
 export interface  getPageData {
-  Id: number;             //工作编号
+  id: number;             //工作编号
   academicYear: string    //学年
   unit: string;           //单位
   positionTitle: string;  //岗位名称
@@ -32,7 +32,7 @@ export interface  getPageData {
 export function createJobData(id:number, academicYear: string, unit: string, positionTitle: string, head: string,
   requireNumber: number, positionNature: string, positionType: string, applicantNumber:number, jobNumber:number) {
   return ({
-    Id: id,
+    id: id,
     academicYear: academicYear,
     unit: unit,
     positionTitle: positionTitle,

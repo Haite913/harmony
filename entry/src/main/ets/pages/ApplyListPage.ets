@@ -2,10 +2,36 @@ import { router } from '@kit.ArkUI'
 import{ http } from '@kit.NetworkKit'
 import { BusinessError } from '@kit.BasicServicesKit';
 
+interface ResultObject {
+  code: number;
+  msg: string;
+  data: DataContainer; // 或者更具体的类型，取决于你的数据结构
+}
+interface DataContainer {
+  code: number;
+  msg: string;
+  data: ApplyResult[]; // 同样使用可选属性操作符
+}
+interface ApplyResult {
+  id: number | null;
+  jobId: number;
+  positionTitle: string;
+  positionType: string;
+  startWorkDate: string;
+  phone: string;
+  academicYear: string;
+  onDutyStatus: number;
+  reviewStatus: number;
+  bankCardNumber: string;
+}
+const applyResult: ApplyResult[] = [];
+
 @Entry
 @Component
 struct ApplyListPage {
   @State index: number = 2
+  @StorageProp('username') username: string = ''
+
   getData(){
     // 构建请求体
     const username:string = 'test'
@@ -26,30 +52,6 @@ struct ApplyListPage {
         },
       },
       (err: BusinessError, data: http.HttpResponse) => {
-        interface ResultObject {
-          code: number;
-          msg: string;
-          data: DataContainer; // 或者更具体的类型，取决于你的数据结构
-        }
-        interface DataContainer {
-          code: number;
-          msg: string;
-          data: ApplyResult[]; // 同样使用可选属性操作符
-        }
-        interface ApplyResult {
-          id: number | null;
-          jobId: number;
-          positionTitle: string;
-          positionType: string;
-          startWorkDate: string;
-          phone: string;
-          academicYear: string;
-          onDutyStatus: number;
-          reviewStatus: number;
-          bankCardNumber: string;
-        }
-
-        const applyResult: ApplyResult[] = [];
         // let obj :ResultObject = JSON.parse(data.result.toString())
         if (data.responseCode==200){
           // 请求成功，处理响应数据
@@ -59,43 +61,27 @@ struct ApplyListPage {
           console.info('cookies:' + JSON.stringify(data.cookies)); // 8+
             // 解析 JSON 字符串为 JavaScript 对象
           const resultObject: ResultObject = JSON.parse(data.result.toString());
-          resultObject.data.data.forEach(
-            (item: ApplyResult) => {
-              console.info(item.positionTitle);
-              console.info(item.positionType);
-              console.info(item.startWorkDate);
-              console.info(item.phone);
-              console.info(item.academicYear);
-              console.info(item.bankCardNumber);
-              console.info(item.jobId.toString());
-              console.info(item.onDutyStatus.toString());
-              console.info(item.reviewStatus.toString());
-            }
-          )
-          //     // 清空 applyResult 数组以确保没有旧数据残留
-          //     applyResult.length = 0;
-          //
-          //     // 遍历数据并填充 applyResult 数组
-          //     positionsData.forEach((position: any) => {
-          //       // 将 onDutyStatus 和 reviewStatus 字符串转换为数字类型
-          //       const parsedPosition: ApplyResult = {
-          //         id: position.id,
-          //         jobId: position.jobId,
-          //         positionTitle: position.positionTitle,
-          //         positionType: position.positionType,
-          //         startWorkDate: position.startWorkDate,
-          //         phone: position.phone,
-          //         academicYear: position.academicYear,
-          //         onDutyStatus: parseInt(position.onDutyStatus, 10),
-          //         reviewStatus: parseInt(position.reviewStatus, 10),
-          //         bankCardNumber: position.bankCardNumber
-          //       };
-          //
-          //       // 添加到 applyResult 数组
-          //       applyResult.push(parsedPosition);
-          //     });
-          //
-          //     console.info('applyResult:', applyResult);
+              // 清空 applyResult 数组以确保没有旧数据残留
+              applyResult.length = 0;
+
+              // 遍历数据并填充 applyResult 数组
+              resultObject.data.data.forEach((item: ApplyResult) => {
+                // 将 onDutyStatus 和 reviewStatus 字符串转换为数字类型
+                  const applyPosition: ApplyResult = {
+                    id: item.id,
+                    jobId: item.jobId,
+                    positionTitle: item.positionTitle,
+                    positionType: item.positionType,
+                    startWorkDate: item.startWorkDate,
+                    phone: item.phone,
+                    academicYear: item.academicYear,
+                    onDutyStatus: item.onDutyStatus,
+                    reviewStatus: item.reviewStatus,
+                    bankCardNumber: item.bankCardNumber
+                  }
+                  applyResult.push(applyPosition);
+              });
+              console.info('applyResult:', applyResult);
         } else {
           // 请求失败，处理错误
           console.error('error:' + JSON.stringify(err));
