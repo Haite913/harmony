@@ -184,35 +184,52 @@ struct JobListPage {
                   Column() {
                     Row() {
                       Text('岗位：'+item.positionTitle)//岗位名称
-                        .fontSize(22)
+                        .fontSize(20)
                         .fontWeight(FontWeight.Bold)
                         .margin({ left: 0})
                       Text(item.positionNature)//岗位性质
-                        .fontSize(22)
+                        .fontSize(20)
                         .fontWeight(FontWeight.Bold)
-                        .margin({ left: 40 })
+                        .fontColor("#c13f2f")
+                        .margin({ left: 60 })
                     }
                     .height('40%')
                     .width('100%')
 
                     Row() {
-                      Text('部门:'+item.unit)//单位
-                        .fontSize(18)
-                        .fontColor(Color.Gray)
-                        .margin({ left: 0 })
                       Text('在岗人数:'+item.jobNumber.toString())//在岗人数
                         .fontSize(18)
                         .fontColor(Color.Gray)
-                        .margin({ left: 60 })
+                        .margin({ left: 0 })
+                      Text('申请人数:')//在岗人数
+                        .fontSize(18)
+                        .fontColor(Color.Gray)
+                        .margin({ left: 15 })
+                      Text(item.applicantNumber.toString())//在岗人数
+                        .fontSize(18)
+                        .fontColor(Color.Orange)
+                        .margin({ left: 0 })
+                      Text('需求人数:')//在岗人数
+                        .fontSize(18)
+                        .fontColor(Color.Gray)
+                        .margin({ left: 15 })
+                      Text(item.requireNumber.toString())//在岗人数
+                        .fontSize(18)
+                        .fontColor('#c13f2f')
+                        .margin({ left: 0 })
                     }
                     .height('20%')
                     .width('100%')
 
                     Row() {
-                      Text('负责人:'+item.head)//负责人
+                      Text('部门:'+item.unit)//单位
                         .fontSize(16)
-                        .margin({ left: 0})
                         .fontColor(Color.Gray)
+                        .margin({ left: 0 })
+                      // Text('负责人:'+item.head)//负责人
+                      //   .fontSize(16)
+                      //   .margin({ left: 0})
+                      //   .fontColor(Color.Gray)
                       Text('学年：'+item.academicYear)//学年
                         .fontSize(16)
                         .margin({ left: 30 })
