@@ -5,6 +5,8 @@
     "pages/ApplyListPage",
     "pages/JobListPage",
     "pages/PersonCenterPage",
-    "pages/RegisterPage"
+    "pages/RegisterPage",
+    "pages/ApplyListDetailPage",
+    "pages/JobListDetailPage"
   ]
 }

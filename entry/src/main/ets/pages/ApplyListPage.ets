@@ -252,9 +252,8 @@ struct ApplyListPage {
                   .alignItems(HorizontalAlign.Start)
                 }
                 .onClick(() => {
-                  //跳转到相应的界面
-                  // router.pushUrl({url: "pages/HomePage"})
-                  // this.getData();
+                  console.info(item.id?.toString());
+                  // router.pushUrl({url: "pages/ApplyListDetailPage"})
                 })
                 .border({
                   color: Color.Red,
