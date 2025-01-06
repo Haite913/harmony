@@ -48,6 +48,7 @@ struct LoginPage {
           msg: string;
           data: object; // 或者更具体的类型，取决于你的数据结构
         }
+
         let obj :ResultObject = JSON.parse(data.result.toString())
         if (obj.code==0){
           AppStorage.setOrCreate("username",this.username)
