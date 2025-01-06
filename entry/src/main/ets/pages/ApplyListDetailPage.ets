@@ -19,7 +19,7 @@ interface DataContainer {
 @Component
 struct ApplyListPage {
   @State index: number = 2
-  @StorageProp('apply_id') apply_id: string = '1'
+  @StorageProp('apply_id') apply_id: string = ''
   @State applyDetailResult: ApplyDetailResult = {
     id : null,
     jobId : 0,
@@ -153,10 +153,26 @@ struct ApplyListPage {
       Text('<')
         .fontSize(30)
         .size({width: 65, height: 65})
-        .margin({right: 170, bottom: 5})
+        .margin({right: 10, bottom: 5})
         .onClick(() => {
           router.pushUrl({url: 'pages/ApplyListPage'})
         })
+      if(this.applyDetailResult.reviewStatus==0){
+        Text('审核状态:未审核')//审核状态
+          .fontSize(18)
+          .fontColor(Color.Orange)
+          .margin({ right: 30 })
+      }else if(this.applyDetailResult.reviewStatus==1){
+        Text('审核状态:已通过')//审核状态
+          .fontSize(18)
+          .fontColor(Color.Green)
+          .margin({ right: 30 })
+      }else if(this.applyDetailResult.reviewStatus==2){
+        Text('审核状态:未通过')//审核状态
+          .fontSize(18)
+          .fontColor(Color.Red)
+          .margin({ right: 30 })
+      }
       Image($r('app.media.Logo'))
         .size({ width: 65, height: 65 })
         .margin({right:25,bottom:5},)
@@ -191,6 +207,8 @@ struct ApplyListPage {
   build() {
     Column() {
       Navigation(){
+        Column(){
+
         // 个人信息
         Column() {
           Row() {
@@ -230,67 +248,71 @@ struct ApplyListPage {
           }
           .margin({ top: 0 });
         }
-        // 其他个人信息...
         .padding({ left: 0 })
         .backgroundColor(Color.White)
         .borderRadius(10)
         .margin({ top: 10 ,bottom:10});
 
         Divider().strokeWidth(2).color('#e6e6e6')
+        Column() {
+          Row() {
+            Image($r("app.media.head"))
+              .size({ width: 70, height: 70 })
+              .margin({ left: 0 })
+            Column() {
+              Row() {
+                Text("负责老师: ")
+                  .fontSize(18)
+                  .fontColor(Color.Black)
+                  .fontWeight(FontWeight.Bold)
+                Text(this.applyDetailResult.teacher)
+                  .fontSize(18)
+                  .fontColor(Color.Black)
+                  .fontWeight(FontWeight.Bold)
+              }
 
-        Row() {
-          Image($r("app.media.head"))
-            .size({ width: 70, height: 70 })
-            .margin({left:0})
-         Column(){
-            Row(){
-              Text("负责老师: ")
-                .fontSize(18)
-                .fontColor(Color.Black)
-                .fontWeight(FontWeight.Bold)
-              Text(this.applyDetailResult.teacher)
-                .fontSize(18)
-                .fontColor(Color.Black)
-                .fontWeight(FontWeight.Bold)
+              Row() {
+                Text("需求人数: ")
+                  .fontSize(14)
+                  .fontColor('#8a8a8a')
+                  .fontWeight(FontWeight.Bold)
+                Text(this.applyDetailResult.requireNumber.toString())
+                  .fontSize(14)
+                  .fontColor('#8a8a8a')
+                  .fontWeight(FontWeight.Bold)
+              }
+
+              Row() {
+                Text("请求人数: ")
+                  .fontSize(14)
+                  .fontColor('#8a8a8a')
+                  .fontWeight(FontWeight.Bold)
+                Text(this.applyDetailResult.applyNumber.toString())
+                  .fontSize(14)
+                  .fontColor('#8a8a8a')
+                  .fontWeight(FontWeight.Bold)
+              }
+
+              Row() {
+                Text("在岗人数: ")
+                  .fontSize(14)
+                  .fontColor('#8a8a8a')
+                  .fontWeight(FontWeight.Bold)
+                Text(this.applyDetailResult.passNumber.toString())
+                  .fontSize(14)
+                  .fontColor('#8a8a8a')
+                  .fontWeight(FontWeight.Bold)
+              }
+
             }
-           Row(){
-             Text("需求人数: ")
-               .fontSize(14)
-               .fontColor('#8a8a8a')
-               .fontWeight(FontWeight.Bold)
-             Text(this.applyDetailResult.requireNumber.toString())
-               .fontSize(14)
-               .fontColor('#8a8a8a')
-               .fontWeight(FontWeight.Bold)
-           }
-           Row(){
-             Text("请求人数: ")
-               .fontSize(14)
-               .fontColor('#8a8a8a')
-               .fontWeight(FontWeight.Bold)
-             Text(this.applyDetailResult.applyNumber.toString())
-               .fontSize(14)
-               .fontColor('#8a8a8a')
-               .fontWeight(FontWeight.Bold)
-           }
-           Row(){
-             Text("在岗人数: ")
-               .fontSize(14)
-               .fontColor('#8a8a8a')
-               .fontWeight(FontWeight.Bold)
-             Text(this.applyDetailResult.passNumber.toString())
-               .fontSize(14)
-               .fontColor('#8a8a8a')
-               .fontWeight(FontWeight.Bold)
-           }
-
+            .margin({ left: 40 })
           }
-          .margin({left:40})
+          .margin({ top: 20 });
         }
-        .margin({ top: 20 });
 
         Divider().strokeWidth(1).color('#e6e6e6')
           .margin({ top: 10 });
+        Column(){
 
         // 申请信息
         Row() {
@@ -327,7 +349,7 @@ struct ApplyListPage {
         }
         .margin({ top: 5 });
         Row() {
-          Text(this.applyDetailResult.positionDemand)
+          Text(this.applyDetailResult.positionDuty)
             .fontSize(16)
             .fontColor(Color.Gray);
         }
@@ -373,9 +395,67 @@ struct ApplyListPage {
             .fontColor(Color.Gray);
         }
         .margin({ top: 3,left:10,right:182 });
+        }
+
+        Divider().strokeWidth(2).color('#e6e6e6')
+          .margin({top:10})
+        Column(){
+
+        Row() {
+          Text("个人信息")
+            .fontSize(20)
+            .fontColor(Color.Black)
+            .fontWeight(FontWeight.Bold)
+        }
+        .padding({ top: 20,right:220 })
+        .backgroundColor(Color.White)
+        .borderRadius(10)
+
+        Row() {
+          Text("姓名: ")
+            .fontSize(18)
+            .fontColor(Color.Black)
+            .padding({ top: 3 ,left:10})
+          Text(this.applyDetailResult.name)
+            .fontSize(16)
+            .fontColor(Color.Gray);
+          Text("电话: ")
+            .fontSize(18)
+            .fontColor(Color.Black)
+            .padding({ top: 3 ,left:50})
+          Text(this.applyDetailResult.phone)
+            .fontSize(16)
+            .fontColor(Color.Gray);
+        }
+          Row() {
+            Text("专业: ")
+              .fontSize(18)
+              .fontColor(Color.Black)
+              .padding({ top: 3 ,left:5})
+            Text(this.applyDetailResult.major)
+              .fontSize(16)
+              .fontColor(Color.Gray);
+            Text("学院: ")
+              .fontSize(18)
+              .fontColor(Color.Black)
+              .padding({ top: 3 ,left:5})
+            Text(this.applyDetailResult.faculty)
+              .fontSize(16)
+              .fontColor(Color.Gray);
+            Text("学号: ")
+              .fontSize(18)
+              .fontColor(Color.Black)
+              .padding({ top: 3 ,left:5})
+            Text(this.applyDetailResult.schoolId.toString())
+              .fontSize(16)
+              .fontColor(Color.Gray);
+          }
+        .margin({ top: 3,left:5,right:182 });
+        }
+        }
+        .size({ width: '100%', height: '100%' })
 
       }
-      // .title("申请详情")
       .mode(NavigationMode.Stack)
       .titleMode(NavigationTitleMode.Mini)
       .hideBackButton(true)

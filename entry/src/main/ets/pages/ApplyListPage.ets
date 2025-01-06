@@ -21,7 +21,6 @@ struct ApplyListPage {
   @StorageProp('username') username: string = 'test'
   @State applyResult: ApplyResult[] = [];
   @State loadData : boolean = true
-  @StorageProp('apply_id') apply_id: string = ''
 
 
   getData(){

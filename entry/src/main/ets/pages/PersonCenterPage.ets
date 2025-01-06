@@ -71,7 +71,7 @@ struct PersonCenterPage {
 
     // 发送GET请求
     httpRequest.request(
-      `http://localhost:8866/ptjs/user/${this.username}`, // 填写HTTP请求的URL地址，替换为你的登录接口URL
+      `http://192.168.236.114:8866/ptjs/user/${this.username}`, // 填写HTTP请求的URL地址，替换为你的登录接口URL
       {
         method: http.RequestMethod.GET, // 设置请求方法为GET
         header: {
@@ -133,7 +133,6 @@ struct PersonCenterPage {
       grade:string
       qq:string
       bankCardNumber:string
-
     }
     const updata:data= {
       id: this.applyPosition.id,
@@ -154,7 +153,7 @@ struct PersonCenterPage {
 
 
     httpRequest.request(
-      `http://localhost:8866/ptjs/user`,
+      `http://192.168.236.114:8866/ptjs/user`,
       {
         method: http.RequestMethod.PUT,
         header: {
