@@ -165,64 +165,21 @@ struct ApplyListPage {
 
   @Builder NavigationToolbar() { // CustomBuilder类型的toolbar
     Row() {
-      Column() {
-        Image(this.index == 0 ? $r('app.media.layered_image') : $r('app.media.foreground'))
-          .size({ width: 25, height: 25 })
-        Text('首页')
-          .fontSize(16)
-          .fontColor(this.index == 0 ? "#c13f2f" : "#8a8a8a")
-      }
-      .alignItems(HorizontalAlign.Center)
-      .height('100%')
-      .layoutWeight(1)
-      .onClick(() => {
-        router.pushUrl({url:'pages/HomePage'})
-      })
+      Button('撤 回 申 请')
+        .width('90%')
+        .height(50)
+        .backgroundColor(Color.Red)
+        .fontSize(18)
+        .fontColor(Color.White)
+        .onClick(() => {
+          // 处理登录逻辑，并且在用户选择记住密码时保存密码
 
-      Column() {
-        Image(this.index == 1 ? $r('app.media.layered_image') : $r('app.media.foreground'))
-          .size({ width: 25, height: 25 })
-        Text('岗位列表')
-          .fontSize(16)
-          .fontColor(this.index == 1 ? "#c13f2f" : "#8a8a8a")
-      }
-      .alignItems(HorizontalAlign.Center)
-      .height('100%')
-      .layoutWeight(1)
-      .onClick(() => {
-        router.pushUrl({url:'pages/JobListPage'})
-      })
+        })
+        .margin({ top: 20 ,left:18 });
 
-      Column() {
-        Image(this.index == 2 ? $r('app.media.layered_image') : $r('app.media.foreground'))
-          .size({ width: 25, height: 25 })
-        Text('申请列表')
-          .fontSize(16)
-          .fontColor(this.index == 2 ? "#c13f2f" : "#8a8a8a")
-      }
-      .alignItems(HorizontalAlign.Center)
-      .height('100%')
-      .layoutWeight(1)
-      .onClick(() => {
-        router.pushUrl({url:'pages/ApplyListPage'})
-      })
-
-      Column() {
-        Image(this.index == 3 ? $r('app.media.layered_image') : $r('app.media.foreground'))
-          .size({ width: 25, height: 25 })
-        Text('个人中心')
-          .fontSize(16)
-          .fontColor(this.index == 3 ? "#c13f2f" : "#8a8a8a")
-      }
-      .alignItems(HorizontalAlign.Center)
-      .height('100%')
-      .layoutWeight(1)
-      .onClick(() => {
-        router.pushUrl({url:'pages/PersonCenterPage'})
-      })
     }
     .width('100%')
-    .height(50)
+    .height(40)
     .alignItems(VerticalAlign.Center)
   }
 
@@ -234,127 +191,189 @@ struct ApplyListPage {
   build() {
     Column() {
       Navigation(){
-        //代码编写位置
-        Button('返 回')
-          .width('30%')
-          .height(40)
-          .backgroundColor(Color.Red)
-          .fontSize(18)
-          .fontColor(Color.White)
-          .onClick(() => {
-            router.pushUrl({url:'pages/ApplyListPage'});
-          })
-          .margin({ top: 10,left:10 })
-
-        //数据
         // 个人信息
         Column() {
-          Text("个人信息")
-            .fontSize(20)
-            .fontColor(Color.Black)
+          Row() {
+            Text(this.applyDetailResult.positionTitle)
+              .fontSize(30)
+              .fontColor(Color.Black)
+              .fontWeight(FontWeight.Bold)
+            Text(this.applyDetailResult.salary.toString())
+              .fontSize(25)
+              .fontColor(Color.Red)
+              .fontWeight(FontWeight.Bold)
+              .margin({left:60})
+          }
+          .margin({ top: 0 });
 
           Row() {
-            Text("姓名: ")
-              .fontSize(16)
-              .fontColor(Color.Black);
-            Text(this.applyDetailResult.name)
-              .fontSize(16)
-              .fontColor(Color.Gray);
+            Image($r("app.media.locate"))
+              .size({ width: 20, height: 20 })
+            Text(this.applyDetailResult.workPlace)
+              .fontSize(18)
+              .fontColor('#8a8a8a')
+              .margin({left:3})
+            Image($r("app.media.package"))
+              .size({ width: 18, height: 18 })
+              .margin({left:20})
+            Text(this.applyDetailResult.unit)
+              .fontSize(18)
+              .fontColor('#8a8a8a')
+              .margin({left:3})
+            Image($r("app.media.hat"))
+              .size({ width: 25, height: 25 })
+              .margin({left:20})
+            Text(this.applyDetailResult.positionType)
+              .fontSize(18)
+              .fontColor('#8a8a8a')
+              .margin({left:3})
           }
-          .margin({ top: 10 });
-
-          Row() {
-            Text("专业: ")
-              .fontSize(16)
-              .fontColor(Color.Black);
-            Text(this.applyDetailResult.major)
-              .fontSize(16)
-              .fontColor(Color.Gray);
-          }
-          .margin({ top: 10 });
-
-          Row() {
-            Text("班级: ")
-              .fontSize(16)
-              .fontColor(Color.Black);
-            Text(this.applyDetailResult.classes)
-              .fontSize(16)
-              .fontColor(Color.Gray);
-          }
-          .margin({ top: 10 });
-
-          // 其他个人信息...
+          .margin({ top: 0 });
         }
-        .padding({ left: 20 })
+        // 其他个人信息...
+        .padding({ left: 0 })
         .backgroundColor(Color.White)
         .borderRadius(10)
+        .margin({ top: 10 ,bottom:10});
+
+        Divider().strokeWidth(2).color('#e6e6e6')
+
+        Row() {
+          Image($r("app.media.head"))
+            .size({ width: 70, height: 70 })
+            .margin({left:0})
+         Column(){
+            Row(){
+              Text("负责老师: ")
+                .fontSize(18)
+                .fontColor(Color.Black)
+                .fontWeight(FontWeight.Bold)
+              Text(this.applyDetailResult.teacher)
+                .fontSize(18)
+                .fontColor(Color.Black)
+                .fontWeight(FontWeight.Bold)
+            }
+           Row(){
+             Text("需求人数: ")
+               .fontSize(14)
+               .fontColor('#8a8a8a')
+               .fontWeight(FontWeight.Bold)
+             Text(this.applyDetailResult.requireNumber.toString())
+               .fontSize(14)
+               .fontColor('#8a8a8a')
+               .fontWeight(FontWeight.Bold)
+           }
+           Row(){
+             Text("请求人数: ")
+               .fontSize(14)
+               .fontColor('#8a8a8a')
+               .fontWeight(FontWeight.Bold)
+             Text(this.applyDetailResult.applyNumber.toString())
+               .fontSize(14)
+               .fontColor('#8a8a8a')
+               .fontWeight(FontWeight.Bold)
+           }
+           Row(){
+             Text("在岗人数: ")
+               .fontSize(14)
+               .fontColor('#8a8a8a')
+               .fontWeight(FontWeight.Bold)
+             Text(this.applyDetailResult.passNumber.toString())
+               .fontSize(14)
+               .fontColor('#8a8a8a')
+               .fontWeight(FontWeight.Bold)
+           }
+
+          }
+          .margin({left:40})
+        }
         .margin({ top: 20 });
+
+        Divider().strokeWidth(1).color('#e6e6e6')
+          .margin({ top: 10 });
 
         // 申请信息
-        Column() {
-          Text("申请信息")
+        Row() {
+          Text("职位详情")
             .fontSize(20)
             .fontColor(Color.Black)
-
-          Row() {
-            Text("申请原因: ")
-              .fontSize(16)
-              .fontColor(Color.Black);
-            Text(this.applyDetailResult.applianceReason)
-              .fontSize(16)
-              .fontColor(Color.Gray);
-          }
-          .margin({ top: 10 });
-
-          Row() {
-            Text("职位名称: ")
-              .fontSize(16)
-              .fontColor(Color.Black);
-            Text(this.applyDetailResult.positionTitle)
-              .fontSize(16)
-              .fontColor(Color.Gray);
-          }
-          .margin({ top: 10 });
-
-          // 其他申请信息...
+            .fontWeight(FontWeight.Bold)
         }
-        .padding({ left: 20 })
+        .padding({ top: 20,right:220 })
         .backgroundColor(Color.White)
         .borderRadius(10)
-        .margin({ top: 20 });
 
-        // 申请状态
-        Column() {
-          Text("申请状态")
-            .fontSize(20)
+        Row() {
+          Text("任职要求: ")
+            .fontSize(18)
             .fontColor(Color.Black)
+            .padding({ top: 3,right:220 })
 
-          Row() {
-            Text("审核状态: ")
-              .fontSize(16)
-              .fontColor(Color.Black);
-            Text(this.applyDetailResult.reviewStatus.toString())
-              .fontSize(16)
-              .fontColor(Color.Gray);
-          }
-          .margin({ top: 10 });
-
-          Row() {
-            Text("审核日期: ")
-              .fontSize(16)
-              .fontColor(Color.Black);
-            Text(this.applyDetailResult.reviewDateTime)
-              .fontSize(16)
-              .fontColor(Color.Gray);
-          }
-          .margin({ top: 10 });
-
-          // 其他申请状态信息...
         }
-        .padding({ left: 20 })
-        .backgroundColor(Color.White)
-        .borderRadius(10)
-        .margin({ top: 20 });
+        .margin({ top: 10 });
+
+        Row() {
+          Text(this.applyDetailResult.positionDemand)
+            .fontSize(16)
+            .fontColor(Color.Gray);
+        }
+        .margin({ top: 5,right:20,left:20 });
+
+        Row() {
+          Text("岗位任务: ")
+            .fontSize(18)
+            .fontColor(Color.Black)
+          .padding({ top: 3,right:220 })
+        }
+        .margin({ top: 5 });
+        Row() {
+          Text(this.applyDetailResult.positionDemand)
+            .fontSize(16)
+            .fontColor(Color.Gray);
+        }
+        .margin({ top: 5,right:20,left:20 });
+
+        Row() {
+          Text("开始工作时间: ")
+            .fontSize(18)
+            .fontColor(Color.Black)
+            .padding({ top: 3 })
+          Text(this.applyDetailResult.startWorkDate)
+            .fontSize(16)
+            .fontColor(Color.Gray);
+        }
+        .margin({ top: 10,left:28,right:160 });
+        Row() {
+          Text("结束工作时间: ")
+            .fontSize(18)
+            .fontColor(Color.Black)
+            .padding({ top: 3 })
+          Text(this.applyDetailResult.endWorkDate)
+            .fontSize(16)
+            .fontColor(Color.Gray);
+        }
+        .margin({ top: 3,left:28,right:160 });
+        Row() {
+          Text("工作周期: ")
+            .fontSize(18)
+            .fontColor(Color.Black)
+            .padding({ top: 3 })
+          Text(this.applyDetailResult.workingWeek)
+            .fontSize(16)
+            .fontColor(Color.Gray);
+        }
+        .margin({ top: 3,left:28,right:160 });
+        Row() {
+          Text("学年: ")
+            .fontSize(18)
+            .fontColor(Color.Black)
+            .padding({ top: 3 })
+          Text(this.applyDetailResult.academicYear)
+            .fontSize(16)
+            .fontColor(Color.Gray);
+        }
+        .margin({ top: 3,left:10,right:182 });
+
       }
       // .title("申请详情")
       .mode(NavigationMode.Stack)
