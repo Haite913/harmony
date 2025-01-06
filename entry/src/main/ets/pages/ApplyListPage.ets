@@ -18,7 +18,7 @@ interface DataContainer {
 @Component
 struct ApplyListPage {
   @State index: number = 2
-  @StorageProp('username') username: string = 'test'
+  @StorageProp('username') username: string = ''
   @State applyResult: ApplyResult[] = [];
   @State loadData : boolean = true
 
