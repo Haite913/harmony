@@ -27,7 +27,64 @@ export interface  getPageData {
   //   this.userName = userName;
   // }
 }
+export interface ApplyDetailResult {
+  id: number | null;
+  jobId: number;
+  applianceListId: number;
+  useId: number;
+  name: string;
+  major: string;
+  classes: string;
+  bankCardNumber: string;
+  phone: string;
+  classNumber: number;
+  average: number;
+  special: string;
+  applianceReason: string;
+  academicYear: string;
+  unit: string;
+  positionTitle: string;
+  positionType: string;
+  positionLevel: string;
+  startWorkDate: string;
+  endWorkDate: string;
+  workingWeek: string;
+  salary: number;
+  teacher: string;
+  numberLastYear: number;
+  applyMonth: number;
+  demandMonth: string;
+  hireType: string;
+  workPlace: string;
+  positionDuty: string;
+  positionDemand: string;
+  requireNumber: number;
+  applyNumber: number;
+  passNumber: number;
+  reviewStatus: number;
+  reviewDateTime: string;
+  onDutyStatus: number;
+  schoolId: number;
+  faculty: string;
+  grade: string;
+  qq: string;
+  comments: string;
+  commentScore: number;
 
+}
+
+export interface ApplyResult {
+  id: number | null;
+  jobId: number;
+  positionTitle: string;
+  positionType: string;
+  startWorkDate: string;
+  phone: string;
+  academicYear: string;
+  onDutyStatus: number;
+  reviewStatus: number;
+  bankCardNumber: string;
+}
 
 export function createJobData(id:number, academicYear: string, unit: string, positionTitle: string, head: string,
   requireNumber: number, positionNature: string, positionType: string, applicantNumber:number, jobNumber:number) {

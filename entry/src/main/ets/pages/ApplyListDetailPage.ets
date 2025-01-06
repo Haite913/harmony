@@ -1,6 +1,7 @@
 import { router } from '@kit.ArkUI'
 import{ http } from '@kit.NetworkKit'
 import { BusinessError } from '@kit.BasicServicesKit';
+import {ApplyDetailResult} from './GetData'
 
 interface ResultObject {
   code: number;
@@ -10,27 +11,59 @@ interface ResultObject {
 interface DataContainer {
   code: number;
   msg: string;
-  data: ApplyResult[]; // 同样使用可选属性操作符
+  data: ApplyDetailResult; // 同样使用可选属性操作符
 }
-interface ApplyResult {
-  id: number | null;
-  jobId: number;
-  positionTitle: string;
-  positionType: string;
-  startWorkDate: string;
-  phone: string;
-  academicYear: string;
-  onDutyStatus: number;
-  reviewStatus: number;
-  bankCardNumber: string;
-}
+
 
 @Entry
 @Component
 struct ApplyListPage {
   @State index: number = 2
-  @StorageProp('username') username: string = ''
-  @State applyResult: ApplyResult[] = [];
+  @StorageProp('apply_id') apply_id: string = '1'
+  @State applyDetailResult: ApplyDetailResult = {
+    id : null,
+    jobId : 0,
+    applianceListId : 0,
+    useId : 0,
+    name : "",
+    major : "",
+    classes : "",
+    bankCardNumber : "",
+    phone : "",
+    classNumber : 0,
+    average : 0,
+    special : "",
+    applianceReason : "",
+    academicYear : "",
+    unit : "",
+    positionTitle : "",
+    positionType : "",
+    positionLevel : "",
+    startWorkDate : "",
+    endWorkDate : "",
+    workingWeek : "",
+    salary : 0,
+    teacher : "",
+    numberLastYear : 0,
+    applyMonth : 0,
+    demandMonth : "",
+    hireType : "",
+    workPlace : "",
+    positionDuty : "",
+    positionDemand : "",
+    requireNumber : 0,
+    applyNumber : 0,
+    passNumber : 0,
+    reviewStatus : 0,
+    reviewDateTime : "",
+    onDutyStatus : 0,
+    schoolId : 0,
+    faculty : "",
+    grade : "",
+    qq : "",
+    comments : "",
+    commentScore : 0,
+  };
   @State loadData : boolean = true
 
 
@@ -44,7 +77,7 @@ struct ApplyListPage {
 
     // 发送GET请求
     httpRequest.request(
-      `http://192.168.236.114:8866/ptjs/applianceList/allApply/${this.username}`, // 填写HTTP请求的URL地址，替换为你的登录接口URL
+      `http://192.168.236.114:8866/ptjs/applianceList/detail/${this.apply_id}`, // 填写HTTP请求的URL地址，替换为你的登录接口URL
       {
         method: http.RequestMethod.GET, // 设置请求方法为GET
         header: {
@@ -61,28 +94,49 @@ struct ApplyListPage {
           console.info('cookies:' + JSON.stringify(data.cookies)); // 8+
           // 解析 JSON 字符串为 JavaScript 对象
           const resultObject: ResultObject = JSON.parse(data.result.toString());
-          // 清空 applyResult 数组以确保没有旧数据残留
-          this.applyResult.length = 0;
-
-          // 遍历数据并填充 applyResult 数组
-          resultObject.data.data.forEach((item: ApplyResult) => {
-            // 将 onDutyStatus 和 reviewStatus 字符串转换为数字类型
-            const applyPosition: ApplyResult = {
-              id: item.id,
-              jobId: item.jobId,
-              positionTitle: item.positionTitle,
-              positionType: item.positionType,
-              startWorkDate: item.startWorkDate,
-              phone: item.phone,
-              academicYear: item.academicYear,
-              onDutyStatus: item.onDutyStatus,
-              reviewStatus: item.reviewStatus,
-              bankCardNumber: item.bankCardNumber
-            }
-            this.applyResult.push(applyPosition);
-          });
-          this.loadData = false;
-          console.info('applyResult:', this.applyResult);
+          this.applyDetailResult.id = resultObject.data.data.id;
+          this.applyDetailResult.jobId = resultObject.data.data.jobId;
+          this.applyDetailResult.applianceListId = resultObject.data.data.applianceListId;
+          this.applyDetailResult.useId = resultObject.data.data.useId;
+          this.applyDetailResult.name = resultObject.data.data.name;
+          this.applyDetailResult.major = resultObject.data.data.major;
+          this.applyDetailResult.classes = resultObject.data.data.classes;
+          this.applyDetailResult.bankCardNumber = resultObject.data.data.bankCardNumber;
+          this.applyDetailResult.phone = resultObject.data.data.phone;
+          this.applyDetailResult.classNumber = resultObject.data.data.classNumber;
+          this.applyDetailResult.average = resultObject.data.data.average;
+          this.applyDetailResult.special = resultObject.data.data.special;
+          this.applyDetailResult.applianceReason = resultObject.data.data.applianceReason;
+          this.applyDetailResult.academicYear = resultObject.data.data.academicYear;
+          this.applyDetailResult.unit = resultObject.data.data.unit;
+          this.applyDetailResult.positionTitle = resultObject.data.data.positionTitle;
+          this.applyDetailResult.positionType = resultObject.data.data.positionType;
+          this.applyDetailResult.positionLevel = resultObject.data.data.positionLevel;
+          this.applyDetailResult.startWorkDate = resultObject.data.data.startWorkDate;
+          this.applyDetailResult.endWorkDate = resultObject.data.data.endWorkDate;
+          this.applyDetailResult.workingWeek = resultObject.data.data.workingWeek;
+          this.applyDetailResult.salary = resultObject.data.data.salary;
+          this.applyDetailResult.teacher = resultObject.data.data.teacher;
+          this.applyDetailResult.numberLastYear = resultObject.data.data.numberLastYear;
+          this.applyDetailResult.applyMonth = resultObject.data.data.applyMonth;
+          this.applyDetailResult.demandMonth = resultObject.data.data.demandMonth;
+          this.applyDetailResult.hireType = resultObject.data.data.hireType;
+          this.applyDetailResult.workPlace = resultObject.data.data.workPlace;
+          this.applyDetailResult.positionDuty = resultObject.data.data.positionDuty;
+          this.applyDetailResult.positionDemand = resultObject.data.data.positionDemand;
+          this.applyDetailResult.requireNumber = resultObject.data.data.requireNumber;
+          this.applyDetailResult.applyNumber = resultObject.data.data.applyNumber;
+          this.applyDetailResult.passNumber = resultObject.data.data.passNumber;
+          this.applyDetailResult.reviewStatus = resultObject.data.data.reviewStatus;
+          this.applyDetailResult.reviewDateTime = resultObject.data.data.reviewDateTime;
+          this.applyDetailResult.onDutyStatus = resultObject.data.data.onDutyStatus;
+          this.applyDetailResult.schoolId = resultObject.data.data.schoolId;
+          this.applyDetailResult.faculty = resultObject.data.data.faculty;
+          this.applyDetailResult.grade = resultObject.data.data.grade;
+          this.applyDetailResult.qq = resultObject.data.data.qq;
+          this.applyDetailResult.comments = resultObject.data.data.comments;
+          this.applyDetailResult.commentScore = resultObject.data.data.commentScore;
+          console.info('1111')
         } else {
           // 请求失败，处理错误
           console.error('error:' + JSON.stringify(err));
@@ -94,7 +148,15 @@ struct ApplyListPage {
   }
 
   @Builder NavigationMenus() { // CustomBuilder类型的菜单栏
+
     Row() {
+      Text('<')
+        .fontSize(30)
+        .size({width: 65, height: 65})
+        .margin({right: 170, bottom: 5})
+        .onClick(() => {
+          router.pushUrl({url: 'pages/ApplyListPage'})
+        })
       Image($r('app.media.Logo'))
         .size({ width: 65, height: 65 })
         .margin({right:25,bottom:5},)
@@ -173,12 +235,128 @@ struct ApplyListPage {
     Column() {
       Navigation(){
         //代码编写位置
-        Text('申请列表详情')
-          .fontSize(30)
-          .fontWeight(FontWeight.Bold)
-          .fontColor(Color.Red)
+        Button('返 回')
+          .width('30%')
+          .height(40)
+          .backgroundColor(Color.Red)
+          .fontSize(18)
+          .fontColor(Color.White)
+          .onClick(() => {
+            router.pushUrl({url:'pages/ApplyListPage'});
+          })
+          .margin({ top: 10,left:10 })
+
+        //数据
+        // 个人信息
+        Column() {
+          Text("个人信息")
+            .fontSize(20)
+            .fontColor(Color.Black)
+
+          Row() {
+            Text("姓名: ")
+              .fontSize(16)
+              .fontColor(Color.Black);
+            Text(this.applyDetailResult.name)
+              .fontSize(16)
+              .fontColor(Color.Gray);
+          }
+          .margin({ top: 10 });
+
+          Row() {
+            Text("专业: ")
+              .fontSize(16)
+              .fontColor(Color.Black);
+            Text(this.applyDetailResult.major)
+              .fontSize(16)
+              .fontColor(Color.Gray);
+          }
+          .margin({ top: 10 });
+
+          Row() {
+            Text("班级: ")
+              .fontSize(16)
+              .fontColor(Color.Black);
+            Text(this.applyDetailResult.classes)
+              .fontSize(16)
+              .fontColor(Color.Gray);
+          }
+          .margin({ top: 10 });
+
+          // 其他个人信息...
+        }
+        .padding({ left: 20 })
+        .backgroundColor(Color.White)
+        .borderRadius(10)
+        .margin({ top: 20 });
+
+        // 申请信息
+        Column() {
+          Text("申请信息")
+            .fontSize(20)
+            .fontColor(Color.Black)
+
+          Row() {
+            Text("申请原因: ")
+              .fontSize(16)
+              .fontColor(Color.Black);
+            Text(this.applyDetailResult.applianceReason)
+              .fontSize(16)
+              .fontColor(Color.Gray);
+          }
+          .margin({ top: 10 });
+
+          Row() {
+            Text("职位名称: ")
+              .fontSize(16)
+              .fontColor(Color.Black);
+            Text(this.applyDetailResult.positionTitle)
+              .fontSize(16)
+              .fontColor(Color.Gray);
+          }
+          .margin({ top: 10 });
+
+          // 其他申请信息...
+        }
+        .padding({ left: 20 })
+        .backgroundColor(Color.White)
+        .borderRadius(10)
+        .margin({ top: 20 });
+
+        // 申请状态
+        Column() {
+          Text("申请状态")
+            .fontSize(20)
+            .fontColor(Color.Black)
+
+          Row() {
+            Text("审核状态: ")
+              .fontSize(16)
+              .fontColor(Color.Black);
+            Text(this.applyDetailResult.reviewStatus.toString())
+              .fontSize(16)
+              .fontColor(Color.Gray);
+          }
+          .margin({ top: 10 });
+
+          Row() {
+            Text("审核日期: ")
+              .fontSize(16)
+              .fontColor(Color.Black);
+            Text(this.applyDetailResult.reviewDateTime)
+              .fontSize(16)
+              .fontColor(Color.Gray);
+          }
+          .margin({ top: 10 });
+
+          // 其他申请状态信息...
+        }
+        .padding({ left: 20 })
+        .backgroundColor(Color.White)
+        .borderRadius(10)
+        .margin({ top: 20 });
       }
-      .title("申请详情")
+      // .title("申请详情")
       .mode(NavigationMode.Stack)
       .titleMode(NavigationTitleMode.Mini)
       .hideBackButton(true)

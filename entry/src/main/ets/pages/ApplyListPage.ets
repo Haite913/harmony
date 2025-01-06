@@ -1,6 +1,7 @@
 import { router } from '@kit.ArkUI'
 import{ http } from '@kit.NetworkKit'
 import { BusinessError } from '@kit.BasicServicesKit';
+import {ApplyResult} from './GetData'
 
 interface ResultObject {
   code: number;
@@ -12,18 +13,6 @@ interface DataContainer {
   msg: string;
   data: ApplyResult[]; // 同样使用可选属性操作符
 }
-interface ApplyResult {
-  id: number | null;
-  jobId: number;
-  positionTitle: string;
-  positionType: string;
-  startWorkDate: string;
-  phone: string;
-  academicYear: string;
-  onDutyStatus: number;
-  reviewStatus: number;
-  bankCardNumber: string;
-}
 
 @Entry
 @Component
@@ -32,6 +21,7 @@ struct ApplyListPage {
   @StorageProp('username') username: string = ''
   @State applyResult: ApplyResult[] = [];
   @State loadData : boolean = true
+  @StorageProp('apply_id') apply_id: string = ''
 
 
   getData(){
@@ -253,7 +243,8 @@ struct ApplyListPage {
                 }
                 .onClick(() => {
                   console.info(item.id?.toString());
-                  // router.pushUrl({url: "pages/ApplyListDetailPage"})
+                  AppStorage.setOrCreate("apply_id",item.id)
+                  router.pushUrl({url: "pages/ApplyListDetailPage"})
                 })
                 .border({
                   color: Color.Red,
