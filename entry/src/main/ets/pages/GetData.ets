@@ -149,7 +149,7 @@ export interface submitJobInfo {
   demandMonth: string;
   endWorkDate: string;
   hireType: string;
-  id: number;
+  // id: number;
   jobId: number;
   numberLastYear: number;
   passNumber: number;

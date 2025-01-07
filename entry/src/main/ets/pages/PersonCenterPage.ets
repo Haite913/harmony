@@ -194,30 +194,24 @@ struct PersonCenterPage {
 
 
 
-  @Builder NavigationMenus() { // CustomBuilder类型的菜单栏
+  @Builder
+  NavigationMenus() { // CustomBuilder类型的菜单栏
     Row() {
-      Image($r('app.media.startIcon'))
-        .size({ width: 24, height: 24 })
-      Image($r('app.media.startIcon'))
-        .size({ width: 24, height: 24 })
-        .margin({ left: 5 })
-      Image($r('app.media.startIcon'))
-        .size({ width: 24, height: 24 })
-        .margin({ left: 5 })
-      Image($r('app.media.startIcon'))
-        .size({ width: 24, height: 24 })
-        .margin({ left: 5 })
-    }.justifyContent(FlexAlign.End)
+      Image($r('app.media.Logo'))
+        .size({ width: 65, height: 65 })
+        .margin({right:25,bottom:5},)
+    }.justifyContent(FlexAlign.Start)
   }
 
-  @Builder NavigationToolbar() { // CustomBuilder类型的toolbar
+  @Builder
+  NavigationToolbar() { // CustomBuilder类型的toolbar
     Row() {
       Column() {
-        Image(this.index == 0 ? $r('app.media.layered_image') : $r('app.media.foreground'))
+        Image(this.index == 0 ? $r('app.media.home') : $r('app.media.home_gray'))
           .size({ width: 25, height: 25 })
         Text('首页')
           .fontSize(16)
-          .fontColor(this.index == 0 ? "#28bff1" : "#8a8a8a")
+          .fontColor(this.index == 0 ? "#c13f2f" : "#8a8a8a")
       }
       .alignItems(HorizontalAlign.Center)
       .height('100%')
@@ -227,11 +221,11 @@ struct PersonCenterPage {
       })
 
       Column() {
-        Image(this.index == 1 ? $r('app.media.layered_image') : $r('app.media.foreground'))
+        Image(this.index == 1 ? $r('app.media.work') : $r('app.media.work_gray'))
           .size({ width: 25, height: 25 })
         Text('岗位列表')
           .fontSize(16)
-          .fontColor(this.index == 1 ? "#28bff1" : "#8a8a8a")
+          .fontColor(this.index == 1 ? "#c13f2f" : "#8a8a8a")
       }
       .alignItems(HorizontalAlign.Center)
       .height('100%')
@@ -241,11 +235,11 @@ struct PersonCenterPage {
       })
 
       Column() {
-        Image(this.index == 2 ? $r('app.media.layered_image') : $r('app.media.foreground'))
+        Image(this.index == 2 ? $r('app.media.apply') : $r('app.media.apply_gray'))
           .size({ width: 25, height: 25 })
         Text('申请列表')
           .fontSize(16)
-          .fontColor(this.index == 2 ? "#28bff1" : "#8a8a8a")
+          .fontColor(this.index == 2 ? "#c13f2f" : "#8a8a8a")
       }
       .alignItems(HorizontalAlign.Center)
       .height('100%')
@@ -255,11 +249,11 @@ struct PersonCenterPage {
       })
 
       Column() {
-        Image(this.index == 3 ? $r('app.media.layered_image') : $r('app.media.foreground'))
+        Image(this.index == 3 ? $r('app.media.person') : $r('app.media.person_gray'))
           .size({ width: 25, height: 25 })
         Text('个人中心')
           .fontSize(16)
-          .fontColor(this.index == 3 ? "#28bff1" : "#8a8a8a")
+          .fontColor(this.index == 3 ? "#c13f2f" : "#8a8a8a")
       }
       .alignItems(HorizontalAlign.Center)
       .height('100%')
@@ -269,7 +263,7 @@ struct PersonCenterPage {
       })
     }
     .width('100%')
-    .height(50)
+    .height(20)
     .alignItems(VerticalAlign.Center)
   }
 
@@ -424,7 +418,7 @@ struct PersonCenterPage {
 
             Flex({direction:FlexDirection.Row}){
               Button('提交修改')
-                .backgroundColor(Color.Pink)
+                .backgroundColor(Color.Red)
                 .align(Alignment.Center)
 
             }
@@ -438,7 +432,7 @@ struct PersonCenterPage {
         .padding(25)
 
       }
-      .title("ArkUI")
+      .title("个人中心")
       .mode(NavigationMode.Stack)
       .titleMode(NavigationTitleMode.Mini)
       .hideBackButton(true)

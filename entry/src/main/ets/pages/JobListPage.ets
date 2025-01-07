@@ -11,7 +11,8 @@ struct JobListPage {
   @State JobData: GetData.getPageData[] = []
 
 
-  @Builder NavigationMenus() { // CustomBuilder类型的菜单栏
+  @Builder
+  NavigationMenus() { // CustomBuilder类型的菜单栏
     Row() {
       Image($r('app.media.Logo'))
         .size({ width: 65, height: 65 })
@@ -19,10 +20,11 @@ struct JobListPage {
     }.justifyContent(FlexAlign.Start)
   }
 
-  @Builder NavigationToolbar() { // CustomBuilder类型的toolbar
+  @Builder
+  NavigationToolbar() { // CustomBuilder类型的toolbar
     Row() {
       Column() {
-        Image(this.index == 0 ? $r('app.media.layered_image') : $r('app.media.foreground'))
+        Image(this.index == 0 ? $r('app.media.home') : $r('app.media.home_gray'))
           .size({ width: 25, height: 25 })
         Text('首页')
           .fontSize(16)
@@ -36,7 +38,7 @@ struct JobListPage {
       })
 
       Column() {
-        Image(this.index == 1 ? $r('app.media.layered_image') : $r('app.media.foreground'))
+        Image(this.index == 1 ? $r('app.media.work') : $r('app.media.work_gray'))
           .size({ width: 25, height: 25 })
         Text('岗位列表')
           .fontSize(16)
@@ -50,7 +52,7 @@ struct JobListPage {
       })
 
       Column() {
-        Image(this.index == 2 ? $r('app.media.layered_image') : $r('app.media.foreground'))
+        Image(this.index == 2 ? $r('app.media.apply') : $r('app.media.apply_gray'))
           .size({ width: 25, height: 25 })
         Text('申请列表')
           .fontSize(16)
@@ -64,7 +66,7 @@ struct JobListPage {
       })
 
       Column() {
-        Image(this.index == 3 ? $r('app.media.layered_image') : $r('app.media.foreground'))
+        Image(this.index == 3 ? $r('app.media.person') : $r('app.media.person_gray'))
           .size({ width: 25, height: 25 })
         Text('个人中心')
           .fontSize(16)
@@ -78,7 +80,7 @@ struct JobListPage {
       })
     }
     .width('100%')
-    .height(50)
+    .height(20)
     .alignItems(VerticalAlign.Center)
   }
 

@@ -218,82 +218,74 @@ struct HomePage {
 
   @Builder
   NavigationMenus() { // CustomBuilder类型的菜单栏
-    Row() {
-      Image($r('app.media.startIcon'))
-        .size({ width: 24, height: 24 })
-      Image($r('app.media.startIcon'))
-        .size({ width: 24, height: 24 })
-        .margin({ left: 5 })
-      Image($r('app.media.startIcon'))
-        .size({ width: 24, height: 24 })
-        .margin({ left: 5 })
-      Image($r('app.media.startIcon'))
-        .size({ width: 24, height: 24 })
-        .margin({ left: 5 })
-    }.justifyContent(FlexAlign.End)
+      Row() {
+        Image($r('app.media.Logo'))
+          .size({ width: 65, height: 65 })
+          .margin({right:25,bottom:5},)
+      }.justifyContent(FlexAlign.Start)
   }
 
   @Builder
   NavigationToolbar() { // CustomBuilder类型的toolbar
     Row() {
       Column() {
-        Image(this.index == 0 ? $r('app.media.layered_image') : $r('app.media.foreground'))
+        Image(this.index == 0 ? $r('app.media.home') : $r('app.media.home_gray'))
           .size({ width: 25, height: 25 })
         Text('首页')
           .fontSize(16)
-          .fontColor(this.index == 0 ? "#28bff1" : "#8a8a8a")
+          .fontColor(this.index == 0 ? "#c13f2f" : "#8a8a8a")
       }
       .alignItems(HorizontalAlign.Center)
       .height('100%')
       .layoutWeight(1)
       .onClick(() => {
-        router.pushUrl({ url: 'pages/HomePage' })
+        router.pushUrl({url:'pages/HomePage'})
       })
 
       Column() {
-        Image(this.index == 1 ? $r('app.media.layered_image') : $r('app.media.foreground'))
+        Image(this.index == 1 ? $r('app.media.work') : $r('app.media.work_gray'))
           .size({ width: 25, height: 25 })
         Text('岗位列表')
           .fontSize(16)
-          .fontColor(this.index == 1 ? "#28bff1" : "#8a8a8a")
+          .fontColor(this.index == 1 ? "#c13f2f" : "#8a8a8a")
       }
       .alignItems(HorizontalAlign.Center)
       .height('100%')
       .layoutWeight(1)
       .onClick(() => {
-        router.pushUrl({ url: 'pages/JobListPage' })
+        router.pushUrl({url:'pages/JobListPage'})
       })
 
       Column() {
-        Image(this.index == 2 ? $r('app.media.layered_image') : $r('app.media.foreground'))
+        Image(this.index == 2 ? $r('app.media.apply') : $r('app.media.apply_gray'))
           .size({ width: 25, height: 25 })
         Text('申请列表')
           .fontSize(16)
-          .fontColor(this.index == 2 ? "#28bff1" : "#8a8a8a")
+          .fontColor(this.index == 2 ? "#c13f2f" : "#8a8a8a")
       }
       .alignItems(HorizontalAlign.Center)
       .height('100%')
       .layoutWeight(1)
       .onClick(() => {
-        router.pushUrl({ url: 'pages/ApplyListPage' })
+        router.pushUrl({url:'pages/ApplyListPage'})
       })
 
       Column() {
-        Image(this.index == 3 ? $r('app.media.layered_image') : $r('app.media.foreground'))
+        Image(this.index == 3 ? $r('app.media.person') : $r('app.media.person_gray'))
           .size({ width: 25, height: 25 })
         Text('个人中心')
           .fontSize(16)
-          .fontColor(this.index == 3 ? "#28bff1" : "#8a8a8a")
+          .fontColor(this.index == 3 ? "#c13f2f" : "#8a8a8a")
       }
       .alignItems(HorizontalAlign.Center)
       .height('100%')
       .layoutWeight(1)
       .onClick(() => {
-        router.pushUrl({ url: 'pages/PersonCenterPage' })
+        router.pushUrl({url:'pages/PersonCenterPage'})
       })
     }
     .width('100%')
-    .height(50)
+    .height(20)
     .alignItems(VerticalAlign.Center)
   }
 
@@ -309,7 +301,7 @@ struct HomePage {
         itemHeight: 10, //图形的高度
         textStyle: {
           //文本样式配置
-          color: '#3C73FF', //字体颜色
+          color: 'black', //字体颜色
           fontSize: 30, //字体大小
           fontWeight: '800' //字体粗细
         }
@@ -363,12 +355,12 @@ struct HomePage {
       series: [//设置柱状区的相关样式与功能
         {
           name: "各部门需求人数", //图例文字
-          color: '#3C73FF', //图例颜色
+          color: '#c13f2f', //图例颜色
           // stack: '', //是否显示堆叠柱子
           barStyle: {
             //柱状样式配置
             width: 14, //柱子宽度
-            color: '#3C73FF', //柱子颜色
+            color: '#c13f2f', //柱子颜色
             barGap: 1 //同系列之间的柱子间隙
           },
           // data: [1,3,3,2] //数据
@@ -415,13 +407,20 @@ struct HomePage {
         {
           name: '各个岗位的每周工作时长',
           // data: [11, 5, 9, 13, 12]
-          data:this.data_time
+          data:this.data_time,
+          color: '#c13f2f', //图例颜色
+          barStyle: {
+            //柱状样式配置
+            width: 14, //柱子宽度
+            color: '#c13f2f', //柱子颜色
+            barGap: 1 //同系列之间的柱子间隙
+          },
         }
       ]
     })
     this.PieOptions = new Options({
       //调色盘颜色列表
-      // color: ['#FAAD14', '#3C73FF', '#52C41A', '#FF4D4F'],
+      color: ['#c13f2f', '#C64D3E', '#C65648', '#C56357','#C36C61'],
       //设置图例的相关样式与功能
       legend: {
         top: '10%', //图例距离顶部侧位置
@@ -499,22 +498,21 @@ struct HomePage {
     Column() {
       Navigation() {
         //代码编写位置
-        Text('首页')
         McBarChart({options:this.BarOptions})
           .height('25%')
-          .margin({top:10})
+          .margin({top:20})
 
         McLineChart({options:this.LineOptions})
           .height('25%')
-          .margin({top:10})
+          .margin({top:40})
 
         McPieChart({options:this.PieOptions})
           .height('25%')
-          .margin({top:10})
+          .margin({top:40})
 
 
       }
-      .title("ArkUI")
+      .title("首页")
       .mode(NavigationMode.Stack)
       .titleMode(NavigationTitleMode.Mini)
       .hideBackButton(true)

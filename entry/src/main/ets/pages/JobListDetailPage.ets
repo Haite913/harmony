@@ -221,7 +221,7 @@ struct JobListPage {
       demandMonth: this.jobDetailData.demandMonth,
       endWorkDate: this.jobDetailData.endPublicDate,
       hireType: this.jobDetailData.hireType,
-      id: this.Job_Id,                          //必要
+      // id: this.Job_Id,                          //必要
       jobId: this.Job_Id,
       numberLastYear: this.jobDetailData.numberLastYear,
       passNumber: this.jobDetailData.passNumber,
@@ -369,7 +369,7 @@ struct JobListPage {
   build() {
     Column() {
       Navigation(){
-        Column(){
+        Column() {
 
           // 个人信息
           Column() {
@@ -382,7 +382,7 @@ struct JobListPage {
                 .fontSize(25)
                 .fontColor(Color.Red)
                 .fontWeight(FontWeight.Bold)
-                .margin({left:60})
+                .margin({ left: 60 })
             }
             .margin({ top: 0 });
 
@@ -392,28 +392,28 @@ struct JobListPage {
               Text(this.jobDetailData.workPlace)
                 .fontSize(18)
                 .fontColor('#8a8a8a')
-                .margin({left:3})
+                .margin({ left: 3 })
               Image($r("app.media.package"))
                 .size({ width: 18, height: 18 })
-                .margin({left:20})
+                .margin({ left: 20 })
               Text(this.jobDetailData.unit)
                 .fontSize(18)
                 .fontColor('#8a8a8a')
-                .margin({left:3})
+                .margin({ left: 3 })
               Image($r("app.media.hat"))
                 .size({ width: 25, height: 25 })
-                .margin({left:20})
+                .margin({ left: 20 })
               Text(this.jobDetailData.positionType)
                 .fontSize(18)
                 .fontColor('#8a8a8a')
-                .margin({left:3})
+                .margin({ left: 3 })
             }
             .margin({ top: 0 });
           }
           .padding({ left: 0 })
           .backgroundColor(Color.White)
           .borderRadius(10)
-          .margin({ top: 10 ,bottom:10});
+          .margin({ top: 10, bottom: 10 });
 
           Divider().strokeWidth(2).color('#e6e6e6')
           Column() {
@@ -474,7 +474,7 @@ struct JobListPage {
 
           Divider().strokeWidth(1).color('#e6e6e6')
             .margin({ top: 10 });
-          Column(){
+          Column() {
 
             // 申请信息
             Row() {
@@ -483,7 +483,7 @@ struct JobListPage {
                 .fontColor(Color.Black)
                 .fontWeight(FontWeight.Bold)
             }
-            .padding({ top: 20,right:220 })
+            .padding({ top: 20, right: 220 })
             .backgroundColor(Color.White)
             .borderRadius(10)
 
@@ -491,7 +491,7 @@ struct JobListPage {
               Text("任职要求: ")
                 .fontSize(18)
                 .fontColor(Color.Black)
-                .padding({ top: 3,right:220 })
+                .padding({ top: 3, right: 220 })
 
             }
             .margin({ top: 10 });
@@ -501,21 +501,22 @@ struct JobListPage {
                 .fontSize(16)
                 .fontColor(Color.Gray);
             }
-            .margin({ top: 5,right:20,left:20 });
+            .margin({ top: 5, right: 20, left: 20 });
 
             Row() {
               Text("岗位任务: ")
                 .fontSize(18)
                 .fontColor(Color.Black)
-                .padding({ top: 3,right:220 })
+                .padding({ top: 3, right: 220 })
             }
             .margin({ top: 5 });
+
             Row() {
               Text(this.jobDetailData.positionDuty)
                 .fontSize(16)
                 .fontColor(Color.Gray);
             }
-            .margin({ top: 5,right:20,left:20 });
+            .margin({ top: 5, right: 20, left: 20 });
 
             Row() {
               Text("开始工作时间: ")
@@ -526,7 +527,8 @@ struct JobListPage {
                 .fontSize(16)
                 .fontColor(Color.Gray);
             }
-            .margin({ top: 10,left:28,right:160 });
+            .margin({ top: 10, left: 28, right: 160 });
+
             Row() {
               Text("结束工作时间: ")
                 .fontSize(18)
@@ -536,7 +538,8 @@ struct JobListPage {
                 .fontSize(16)
                 .fontColor(Color.Gray);
             }
-            .margin({ top: 3,left:28,right:160 });
+            .margin({ top: 3, left: 28, right: 160 });
+
             Row() {
               Text("工作周期: ")
                 .fontSize(18)
@@ -546,7 +549,8 @@ struct JobListPage {
                 .fontSize(16)
                 .fontColor(Color.Gray);
             }
-            .margin({ top: 3,left:28,right:160 });
+            .margin({ top: 3, left: 28, right: 160 });
+
             Row() {
               Text("学年: ")
                 .fontSize(18)
@@ -556,67 +560,12 @@ struct JobListPage {
                 .fontSize(16)
                 .fontColor(Color.Gray);
             }
-            .margin({ top: 3,left:10,right:182 });
+            .margin({ top: 3, left: 10, right: 182 });
           }
 
           Divider().strokeWidth(2).color('#e6e6e6')
-            .margin({top:10})
-          Column(){
-
-            Row() {
-              Text("个人信息")
-                .fontSize(20)
-                .fontColor(Color.Black)
-                .fontWeight(FontWeight.Bold)
-            }
-            .padding({ top: 20,right:220 })
-            .backgroundColor(Color.White)
-            .borderRadius(10)
-
-            Row() {
-              Text("姓名: ")
-                .fontSize(18)
-                .fontColor(Color.Black)
-                .padding({ top: 3 ,left:10})
-              Text(this.studentInfo.name)
-                .fontSize(16)
-                .fontColor(Color.Gray);
-              Text("电话: ")
-                .fontSize(18)
-                .fontColor(Color.Black)
-                .padding({ top: 3 ,left:50})
-              Text(this.studentInfo.phone)
-                .fontSize(16)
-                .fontColor(Color.Gray);
-            }
-            Row() {
-              Text("专业: ")
-                .fontSize(18)
-                .fontColor(Color.Black)
-                .padding({ top: 3 ,left:5})
-              Text(this.studentInfo.major)
-                .fontSize(16)
-                .fontColor(Color.Gray);
-              Text("学院: ")
-                .fontSize(18)
-                .fontColor(Color.Black)
-                .padding({ top: 3 ,left:5})
-              Text(this.studentInfo.faculty)
-                .fontSize(16)
-                .fontColor(Color.Gray);
-              Text("学号: ")
-                .fontSize(18)
-                .fontColor(Color.Black)
-                .padding({ top: 3 ,left:5})
-              Text(this.studentInfo.schoolId.toString())
-                .fontSize(16)
-                .fontColor(Color.Gray);
-            }
-            .margin({ top: 3,left:5,right:182 });
-          }
+            .margin({ top: 10 })
         }
-        .size({ width: '100%', height: '100%' })
-
       }
       .mode(NavigationMode.Stack)
       .titleMode(NavigationTitleMode.Mini)
