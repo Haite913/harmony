@@ -1,6 +1,8 @@
-import { router } from '@kit.ArkUI'
+import { promptAction, router } from '@kit.ArkUI'
 import { http } from '@kit.NetworkKit';
 import { BusinessError } from '@kit.BasicServicesKit';
+import { inputMethod } from '@kit.IMEKit';
+
 export const BASE_URL: string = 'https://lblbc.cn/';
 
 
@@ -23,7 +25,7 @@ interface ApplyResult{
   major:string
   classes:string
   phone:string
-  poorSymbol:boolean
+  poorSymbol:number
   identity:number
   delFlag:number
   schoolId:number
@@ -48,7 +50,7 @@ struct PersonCenterPage {
     major: '',
     classes: '',
     phone: '',
-    poorSymbol: false,
+    poorSymbol: 0,
     identity: 0,
     delFlag: 0,
     schoolId: 0,
@@ -133,6 +135,7 @@ struct PersonCenterPage {
       grade:string
       qq:string
       bankCardNumber:string
+
     }
     const updata:data= {
       id: this.applyPosition.id,
@@ -142,7 +145,7 @@ struct PersonCenterPage {
       major: this.applyPosition.major,
       classes: this.applyPosition.classes,
       phone: this.applyPosition.phone,
-      poorSymbol: this.applyPosition.poorSymbol?1:0,
+      poorSymbol: this.applyPosition.poorSymbol,
       identity: this.applyPosition.identity,
       schoolId: this.applyPosition.schoolId,
       faculty: this.applyPosition.faculty,
@@ -411,7 +414,7 @@ struct PersonCenterPage {
               Toggle({type:ToggleType.Switch,isOn:!!this.applyPosition.poorSymbol})
                 .margin({top:8})
                 .onChange((newValue: boolean) => {
-                  this.applyPosition.poorSymbol = newValue;
+                  this.applyPosition.poorSymbol = Number(newValue);
                 })
             }
             .padding(5)
@@ -426,6 +429,12 @@ struct PersonCenterPage {
             .padding(5)
             .onClick(()=>{
               this.submitUpdata();
+              promptAction.showToast({
+                message: "提交成功", // 显示文本
+                duration: 1500,              // 显示时长
+                bottom: 300                  // 距离底部的距离
+
+              })
             })
           }
         }
