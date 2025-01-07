@@ -3,6 +3,8 @@
 
 
 //工作查询页面的数据，从接口文档进行设置
+
+//工作列表详细数据
 export interface  getPageData {
   id: number;             //工作编号
   academicYear: string    //学年
@@ -15,18 +17,9 @@ export interface  getPageData {
   applicantNumber: number //申请人数
   jobNumber: number       //在岗人数
 
-  // constructor(jobId: number, onDustyStatus: string, pageNumber:number, pageSize: number, positionTitle: string,
-  //   reviewStatus: string, unit: string, userName: string) {
-  //   this.jobId = jobId;
-  //   this.onDustyStatus = onDustyStatus;
-  //   this.pageNumber = pageNumber;
-  //   this.pageSize = pageSize;
-  //   this.positionTitle = positionTitle;
-  //   this.reviewStatus = reviewStatus;
-  //   this.unit = unit;
-  //   this.userName = userName;
-  // }
 }
+
+//申请工作列表详细数据
 export interface ApplyDetailResult {
   id: number | null;
   jobId: number;
@@ -73,6 +66,7 @@ export interface ApplyDetailResult {
 
 }
 
+//申请列表
 export interface ApplyResult {
   id: number | null;
   jobId: number;
@@ -86,18 +80,108 @@ export interface ApplyResult {
   bankCardNumber: string;
 }
 
-export function createJobData(id:number, academicYear: string, unit: string, positionTitle: string, head: string,
-  requireNumber: number, positionNature: string, positionType: string, applicantNumber:number, jobNumber:number) {
-  return ({
-    id: id,
-    academicYear: academicYear,
-    unit: unit,
-    positionTitle: positionTitle,
-    head: head,
-    requireNumber: requireNumber,
-    positionNature: positionNature,
-    positionType: positionType,
-    applicantNumber: applicantNumber,
-    jobNumber: jobNumber,
-  } as getPageData);
+//学生信息
+export interface StudentInfo{
+  id:number;
+  name:string;
+  username:string
+  password:string
+  major:string
+  classes:string
+  phone:string
+  poorSymbol:boolean
+  identity:number
+  delFlag:number
+  schoolId:number
+  faculty:string
+  grade:string
+  qq:string
+  bankCardNumber:string
 }
+
+//getById接口，获取工作详情
+export interface getById{
+  id: number | null;
+  academicYear: string;
+  unit: string;
+  positionTitle: string;
+  head: string;
+  headPhone: string;
+  requireNumber: number;
+  workingWeek: string;
+  startWorkDate: string;
+  endWorkDate: string;
+  positionNature: string;
+  salary: number;
+  positionType: string;
+  positionLevel: string;
+  teacher: string;
+  budget: string;
+  numberLastYear: number;
+  applicantMonth: number;
+  demandMonth: string;
+  hireType: string;
+  workPlace: string;
+  positionDuty: string;
+  applicantNumber:number;
+  passNumber: number;
+  jobNumber: number;
+  positionDemand: string;
+  startPublicDate: string;
+  endPublicDate: string;
+  genderRestriction: number;
+  gradeRestriction: number;
+  poorRestriction: number;
+  academyRestriction: number;
+  majorRestriction: number;
+
+
+}
+
+// 提交工作申请所需要的信息
+export interface submitJobInfo {
+  //工作信息
+  academicYear: string;
+  applyMonth: number;
+  applyNumber: number;
+  budget: string;
+  comments: string;
+  demandMonth: string;
+  endWorkDate: string;
+  hireType: string;
+  id: number;
+  jobId: number;
+  numberLastYear: number;
+  passNumber: number;
+  positionDemand: string;
+  positionDuty: string;
+  positionLevel: string;
+  positionTitle: string;
+  positionType: string;
+  requireNumber: number;
+  salary: number;
+  startWorkDate: string;
+  teacher: string;
+  unit: string;
+  username: string;
+  workPlace: string;
+  workingWeek: string;
+
+  //学生信息
+  studentId: number;
+  name: string;
+  major: string
+  classes: string
+  phone: string
+  poorSymbol: boolean
+  identity: number
+  delFlag: number
+  schoolId: number
+  faculty: string
+  grade: string
+  qq: string
+  bankCardNumber: string
+
+}
+
+

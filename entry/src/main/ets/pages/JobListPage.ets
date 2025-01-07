@@ -10,6 +10,7 @@ struct JobListPage {
   @State loadData : boolean = true
   @State JobData: GetData.getPageData[] = []
 
+
   @Builder NavigationMenus() { // CustomBuilder类型的菜单栏
     Row() {
       Image($r('app.media.Logo'))
@@ -118,7 +119,7 @@ struct JobListPage {
           data: GetData.getPageData[]; // 同样使用可选属性操作符
         }
 
-        const applyResult: GetData.getPageData[] = [];
+        // const applyResult: GetData.getPageData[] = [];
         // let obj :ResultObject = JSON.parse(data.result.toString())
         if (data.responseCode==200){
           // 请求成功，处理响应数据
@@ -132,16 +133,6 @@ struct JobListPage {
             (item: GetData.getPageData, index : number) => {
               this.JobData[index] = item;
 
-              console.info(item.positionTitle);
-              console.info(item.positionType);
-              console.info(item.academicYear);
-              console.info(item.unit);
-              console.info(item.academicYear);
-              console.info(item.head);
-              console.info(item.requireNumber.toString());
-              console.info(item.positionNature);
-              console.info(item.applicantNumber.toString());
-              console.info(item.jobNumber.toString());
             }
           )
            this.loadData = false;
@@ -244,8 +235,8 @@ struct JobListPage {
                 }
                 .onClick(() => {
                   //跳转到相应的界面
-                  // router.pushUrl({url: "pages/HomePage"})
-                  // this.getData();
+                  AppStorage.setOrCreate("Job_Id",item.id)
+                  router.pushUrl({url: "pages/JobListDetailPage"})
                 })
                 .border({
                   color: Color.Red,
